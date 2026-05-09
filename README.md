@@ -1,2 +1,2 @@
-# -n-quan-AI
+# O-an-quan-AI
 Using an AI to make you feel bad when playing this game...
