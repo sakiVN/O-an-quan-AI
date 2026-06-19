@@ -1,9 +1,9 @@
 import { Board } from "./board";
 import { Move, Player } from "./types";
 
-export type AIDifficulty = "easy" | "medium" | "hard";
+export type AIDifficulty = "easy" | "medium" | "hard" | "custom";
 
-const DEPTH_BY_DIFFICULTY: Record<AIDifficulty, number> = {
+const DEPTH_BY_DIFFICULTY: Record<Exclude<AIDifficulty, "custom">, number> = {
   easy: 1,
   medium: 3,
   hard: 5,
@@ -84,8 +84,12 @@ function minimax(
 export function findBestMove(
   board: Board,
   difficulty: AIDifficulty = "medium",
+  customDepth = 5,
 ): SearchResult {
-  const depth = DEPTH_BY_DIFFICULTY[difficulty];
+  const depth =
+    difficulty === "custom"
+      ? Math.max(1, Math.min(customDepth, 20))
+      : DEPTH_BY_DIFFICULTY[difficulty];
   const start = performance.now();
   const counter = { nodes: 0 };
 
